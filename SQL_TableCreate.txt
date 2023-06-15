@@ -1,0 +1,104 @@
+CREATE TABLE `customer` (
+ `customerID` int(5) NOT NULL,
+ `name` varchar(50) DEFAULT NULL,
+ `phone` varchar(20) DEFAULT NULL,
+ `address` varchar(50) DEFAULT NULL,
+ `payment` varchar(10) DEFAULT NULL,
+ PRIMARY KEY (`customerID`)
+) 
+
+CREATE TABLE `product` (
+ `productID` int(5) NOT NULL,
+ `name` varchar(20) NOT NULL,
+ `price` int(10) NOT NULL,
+ `type` varchar(20) NOT NULL,
+ PRIMARY KEY (`productID`)
+) 
+
+CREATE TABLE `信用卡` (
+ `credit_card_number` varchar(20) NOT NULL,
+ `customerID` int(5) NOT NULL,
+ KEY `持有` (`customerID`),
+ CONSTRAINT `持有` FOREIGN KEY (`customerID`) REFERENCES `customer` (`customerID`)
+)
+
+CREATE TABLE `合約` (
+ `account` int(20) NOT NULL,
+ `monthy_bill` int(10) NOT NULL,
+ `customerID` int(5) NOT NULL,
+ `storeID` int(5) NOT NULL,
+ PRIMARY KEY (`account`,`customerID`),
+ KEY `簽訂` (`customerID`),
+ KEY `擬定` (`storeID`),
+ CONSTRAINT `擬定` FOREIGN KEY (`storeID`) REFERENCES `實體店鋪` (`storeID`),
+ CONSTRAINT `簽訂` FOREIGN KEY (`customerID`) REFERENCES `customer` (`customerID`)
+)
+
+CREATE TABLE `實體店鋪` (
+ `storeID` int(5) NOT NULL,
+ `地區` varchar(20) NOT NULL,
+ `address` varchar(50) NOT NULL,
+ `name` varchar(20) NOT NULL,
+ `phone` varchar(20) NOT NULL,
+ PRIMARY KEY (`storeID`)
+) 
+
+CREATE TABLE `庫存` (
+ `storeID` int(5) NOT NULL,
+ `product_ID` int(10) NOT NULL,
+ `status` varchar(20) NOT NULL,
+ `capacity` int(10) NOT NULL,
+ `store_inventory` int(10) NOT NULL,
+ PRIMARY KEY (`storeID`,`product_ID`),
+ KEY `product_ID` (`product_ID`),
+ CONSTRAINT `儲存` FOREIGN KEY (`storeID`) REFERENCES `實體店鋪` (`storeID`),
+ CONSTRAINT `庫存_ibfk_1` FOREIGN KEY (`product_ID`) REFERENCES `product` (`productID`)
+) 
+
+CREATE TABLE `製造商` (
+ `mfID` int(5) NOT NULL,
+ `name` varchar(50) NOT NULL,
+ `phone` varchar(20) NOT NULL,
+ PRIMARY KEY (`mfID`)
+) 
+
+CREATE TABLE `訂單` (
+ `orderID` int(10) NOT NULL,
+ `status` varchar(20) NOT NULL,
+ `orderDate` timestamp NOT NULL DEFAULT current_timestamp(),
+ `value` int(10) NOT NULL,
+ `destination` varchar(50) NOT NULL,
+ `expectedDate` date NOT NULL,
+ `arrivedDate` date DEFAULT NULL,
+ `delivery` varchar(10) NOT NULL,
+ `customerID` int(10) NOT NULL,
+ PRIMARY KEY (`orderID`),
+ KEY `訂貨` (`customerID`),
+ CONSTRAINT `訂貨` FOREIGN KEY (`customerID`) REFERENCES `customer` (`customerID`)
+)
+
+CREATE TABLE `訂單info` (
+ `orderID` int(10) NOT NULL,
+ `productID` int(5) NOT NULL,
+ `amount` int(10) NOT NULL,
+ PRIMARY KEY (`orderID`,`productID`),
+ KEY `productID` (`productID`),
+ CONSTRAINT `包含` FOREIGN KEY (`orderID`) REFERENCES `訂單` (`orderID`),
+ CONSTRAINT `訂單info_ibfk_1` FOREIGN KEY (`productID`) REFERENCES `product` (`productID`)
+) 
+
+CREATE TABLE `運輸公司` (
+ `deliveryID` int(5) NOT NULL,
+ `name` varchar(50) NOT NULL,
+ `address` varchar(50) NOT NULL,
+ `phone` varchar(20) NOT NULL,
+ PRIMARY KEY (`deliveryID`)
+) 
+
+CREATE TABLE `倉庫` (
+  `warehouse_ID` int(5) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `address` varchar(20) NOT NULL,
+  `capcity` int(10) NOT NULL,
+  PRIMARY KEY (`warehouse_ID`)
+)
