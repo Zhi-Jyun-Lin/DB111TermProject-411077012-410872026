@@ -3,9 +3,13 @@
 
 2.Schema : 根據ER圖製作，其中商品與訂單的關係為多對多，所以有另外建一個Relational Table 做紀錄。
 
-3.TableSizeCheck.java 可以查看每個Table的大小； TableSizeCheckResult.jpg 為查看後結果圖
+3.TableSizeCheck.java 可以查看每個Table的大小； TableSizeCheckResult.jpg 為查看後結果圖。
 
-4.查詢 Q1~Q4 查詢語句含結果圖 在 Queries1-5.docx ; Q5的程式碼在 mariaDB.java
+4.查詢 Q1~Q4 查詢語句含結果圖 在 Queries1-5.docx ; Q5的程式碼在 mariaDB.java。
 
-5.SQL_TableCreate.txt 為每個table的show create table
+5.SQL_TableCreate.txt 為每個table的show create table。
+
+6.根據"Customer service needs a lookup application to check inventory both locally and at nearby stores."，
+InventoryLookup.java檔可以讓客服輸入想查找的產品編號或名字，輸出相關庫存資訊如InventoryLookupResult.jpg顯示。
+
 
