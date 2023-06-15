@@ -7,5 +7,5 @@
 
 4.查詢 Q1~Q4 查詢語句含結果圖 在 Queries1-5.docx ; Q5的程式碼在 mariaDB.java
 
-5.SQL創建語言.txt 為每個table的show create table
+5.SQL_TableCreate.txt 為每個table的show create table
 
